@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <style>.cross-stroke{fill:none;stroke:#ff4141;stroke-width:6;stroke-linecap:round;}</style>
+  </defs>
+  <title>cross</title>
+  <line class="cross-stroke" x1="20" y1="20" x2="80" y2="80"/>
+  <line class="cross-stroke" x1="80" y1="20" x2="20" y2="80"/>
+</svg>
