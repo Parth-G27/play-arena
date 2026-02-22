@@ -4,7 +4,6 @@ import Tile from "@/components/Tile";
 import Image from "next/image";
 import { useState } from "react";
 
-// All 8 winning line index triplets
 const WIN_LINES: number[][] = [
   [0,1,2],[3,4,5],[6,7,8], // rows
   [0,3,6],[1,4,7],[2,5,8], // cols
@@ -22,7 +21,6 @@ function getWinner(board: (boolean | null)[]): boolean | null {
 }
 
 function GamePage() {
-  console.log()
   const [crossMove, setCrossMove] = useState<boolean>(true);
   const [gameCrossArray, setGameCrossArray] = useState<(boolean | null)[]>(Array(9).fill(null));
   const winner = getWinner(gameCrossArray);
