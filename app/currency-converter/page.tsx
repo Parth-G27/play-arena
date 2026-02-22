@@ -32,7 +32,7 @@ export default function CurrencyConverter() {
             settoAmount(null);
             fetctConversionRates();
         }
-    }, [fromCurr, toCurr]);
+    }, [fromCurr, toCurr]); 
 
     useEffect(() => {
         if (fromAmount != null && conversionRate != null) {
