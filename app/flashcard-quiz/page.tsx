@@ -3,17 +3,6 @@ import React, { useEffect, useState } from "react";
 import { NavbarFlashCard } from "./NavbarFlashCard";
 import { Card } from "./Card";
 
-// {
-//     "type": "boolean",
-//     "difficulty": "easy",
-//     "category": "Entertainment: Video Games",
-//     "question": "&quot;Half-Life 2&quot; runs on the Source Engine.",
-//     "correct_answer": "True",
-//     "incorrect_answers": [
-//         "False"
-//     ]
-// }
-
 export interface questionObjectProps {
     type: string;
     difficulty: string;
@@ -28,15 +17,18 @@ export interface categoryObjectProps {
   name: string;
 }
 export default function FlashCardQuiz() {
+    // States 
     const [questionsList, setQuestionsList] = useState<[questionObjectProps] | null>(null);
-  const [categorytList, setCategoryList] = useState<[categoryObjectProps] | null>(null);
-  const [numberOfQuestions, setNumberOfQuestions] = useState<number | null>(null);
-  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
+    const [categoryList, setCategoryList] = useState<[categoryObjectProps] | null>(null);
+    const [numberOfQuestions, setNumberOfQuestions] = useState<number | null>(null);
+    const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
 
-  // APIs
+  // API URLs
   const BASE_URL = "https://opentdb.com/api.php?amount=";
   const CATEGORY_BASE_URL = "https://opentdb.com/api_category.php";
 
+  
+  // API calls
   useEffect(() => {
     fetchCategoryList();
     fetchQuestionList();
@@ -84,7 +76,7 @@ export default function FlashCardQuiz() {
     <div className="flex flex-col min-h-screen justify-start items-center">
       <div className="text-4xl font-bold text-gray-600">FlashCard Quiz App</div>
       <NavbarFlashCard
-        categoryList={categorytList}
+        categoryList={categoryList}
         categoryNameChange={(e) => setSelectedCategoryId(e.target.value)}
         numberOfQuestionsChange={(e) => setNumberOfQuestions(e.target.value)}
       />
