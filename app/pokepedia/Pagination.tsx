@@ -1,22 +1,30 @@
 import React, { JSX } from 'react'
-import { pokemonListProps } from './page';
+import { Button } from "@/components/ui/button";
 
 export interface PaginationProps{
-    pokemonList: pokemonListProps[] | null;
+    nextButtonOnClick: () => void;
+    prevButtonOnClick: () => void;
 }
 export const Pagination: React.FC<PaginationProps> = (props:PaginationProps) : JSX.Element => {
 
   return (
-    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-      {props.pokemonList?.map((obj) => (
-        <div
-          key={obj.name}
-          className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm shadow-sm hover:translate-0.5"
-        >
-          <span className="font-semibold text-slate-700">#{/\/(\d+)\/?$/.exec(obj.url)?.[1] ?? "-"}</span>
-          <span className="ml-2 capitalize text-slate-900">{obj.name}</span>
-        </div>
-      ))}
+    <div className="flex flex-col">
+      
+
+      <div className="mt-6 flex items-center justify-center gap-3">
+          <Button
+            variant="outline"
+            onClick={props.prevButtonOnClick}
+            // disabled={!prevURL}
+          >
+            Prev
+          </Button>
+          <Button onClick={props.nextButtonOnClick} 
+        //   disabled={!nextURL}
+          >
+            Next
+          </Button>
+      </div>
     </div>
   )
 }

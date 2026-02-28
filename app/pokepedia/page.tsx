@@ -1,30 +1,35 @@
 "use client";
 import React, { useState } from "react";
 import { Pagination } from "./Pagination";
+import { Table } from "./Table";
 import { Button } from "@/components/ui/button";
 
-export interface pokemonListProps{
-    name: string;
-    url: string;
+export interface pokemonListProps {
+  name: string;
+  url: string;
 }
 
 export const Pokepedia = () => {
-    const [totalCount, setTotalCount] = useState<number | null>(null);
-    const [pokemonList, setPokemonList] = useState<pokemonListProps[] | null>(null);
-    const [nextURL, setnextURL] = useState<string>('');
-    const [prevURL, setprevURL] = useState<string>('');
+  const [totalCount, setTotalCount] = useState<number | null>(null);
+  const [pokemonList, setPokemonList] = useState<pokemonListProps[] | null>(
+    null,
+  );
+  const [nextURL, setnextURL] = useState<string>("");
+  const [prevURL, setprevURL] = useState<string>("");
 
   async function fetchPokemonNames() {
     try {
-        const res = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=20&offset=0`);
-        const data = await res.json()
-        console.log(data);
-        setTotalCount(data?.count);
-        setPokemonList(data?.results)
-        setnextURL(data?.next);
-        setprevURL(data?.previous);
+      const res = await fetch(
+        `https://pokeapi.co/api/v2/pokemon/?limit=20&offset=0`,
+      );
+      const data = await res.json();
+      console.log(data);
+      setTotalCount(data?.count);
+      setPokemonList(data?.results);
+      setnextURL(data?.next);
+      setprevURL(data?.previous);
     } catch (error) {
-        console.log(`ERROR1:`+error);
+      console.log(`ERROR1:` + error);
     }
   }
 
@@ -32,21 +37,20 @@ export const Pokepedia = () => {
     fetchPokemonNames();
   }, []);
 
-  const fetchByUrl = async (url_:string) => {
+  const fetchByUrl = async (url_: string) => {
     if (!url_) return;
     try {
-        const res = await fetch(url_);
-        const data = await res.json()
-        console.log(data);
-        setTotalCount(data?.count);
-        setPokemonList(data?.results)
-        setnextURL(data?.next);
-        setprevURL(data?.previous);
+      const res = await fetch(url_);
+      const data = await res.json();
+      console.log(data);
+      setTotalCount(data?.count);
+      setPokemonList(data?.results);
+      setnextURL(data?.next);
+      setprevURL(data?.previous);
     } catch (error) {
-        console.log(`ERROR2:`+error);
+      console.log(`ERROR2:` + error);
     }
-  }
-
+  };
 
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-8">
@@ -58,13 +62,16 @@ export const Pokepedia = () => {
           Total Pokémons: {totalCount ?? "-"}
         </p>
 
-        {/* <Table /> */}
+        <Table pokemonList={pokemonList}/>
 
         <div className="mt-6">
-          <Pagination pokemonList={pokemonList} />
+          <Pagination
+            nextButtonOnClick={() => fetchByUrl(nextURL)}
+            prevButtonOnClick={() => fetchByUrl(prevURL)}
+          />
         </div>
 
-        <div className="mt-6 flex items-center justify-center gap-3 ">
+        {/* <div className="mt-6 flex items-center justify-center gap-3 ">
           <Button
             variant="outline"
             onClick={() => fetchByUrl(prevURL)}
@@ -75,7 +82,7 @@ export const Pokepedia = () => {
           <Button onClick={() => fetchByUrl(nextURL)} disabled={!nextURL}>
             Next
           </Button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
